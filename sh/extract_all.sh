@@ -1,5 +1,13 @@
 #!/bin/sh
 
+
+# This script will recursively find all compressed files
+# in the directory it is ran. If it finds any files,
+# it will make a new directory using the same name as the tar file
+# and then extract that tar file into the directory.
+
+# Warning: this will keep going on and on until it can't find any compressed files. 
+
 do_stuff () {
 
 	found=0
