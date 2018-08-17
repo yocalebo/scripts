@@ -26,7 +26,6 @@ do_stuff () {
 			done
 		done
 	else
-		echo "No compressed files found in $curr_dir"
 		exit 0
 	fi
 }
