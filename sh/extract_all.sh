@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # This script will recursively find all compressed files
 # in the directory it is ran. If it finds any files,
 # it will make a new directory using the same name as the tar file
@@ -25,9 +24,13 @@ do_stuff () {
 					echo "mkdir'ing $dirname"
 					mkdir -p $dirname
 					echo "extracting $filename to $dirname"
-					tar xzf $filename -C $dirname
-					echo "removing $filename"
-					rm -rf $filename
+					# Let's not remove the tar file if we fail to extract
+					if tar xf $filename -C $dirname; then
+						echo "removing $filename"
+						rm -rf $filename
+					else
+						continue
+					fi
 				else
 					do_stuff
 				fi
