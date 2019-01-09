@@ -7,38 +7,43 @@
 
 # Warning: this will keep going on and on until it can't find any compressed files. 
 
-do_stuff () {
+extract_all () {
 
-	found=0
-	curr_dir=`pwd`
-	
-	findfiles=$(find $curr_dir -name '*.tar' -o -name '*.tar.gz' -o -name '*.tgz' -o -name '*.txz' -type f)
-	
-	if [ ! -z "$findfiles" ]; then
-		while [ $found == 0 ]; do
-			for filesfound in $findfiles; do
-				if [ -f "$filesfound" ]; then
-					echo "found $filesfound"
-					filename="${filesfound#./}"
-					dirname="${filename%.*}"
-					echo "mkdir'ing $dirname"
-					mkdir -p $dirname
-					echo "extracting $filename to $dirname"
-					# Let's not remove the tar file if we fail to extract
-					if tar xf $filename -C $dirname; then
-						echo "removing $filename"
-						rm -rf $filename
-					else
-						continue
-					fi
-				else
-					do_stuff
-				fi
-			done
-		done
-	else
-		exit 0
-	fi
+        # Separate on newlines only
+        IFS='
+        '
+        # Poor mans recursion
+        found=0
+
+        # Generate lits of files to extract
+        filesfound="$(find . -name '*.tar' -o -name '*.tar.gz' -o -name '*.txz' -o -name '*.tgz' -type f)"
+
+
+        if [ ! -z "$filesfound" ]; then
+                while [ $found = 0 ]; do
+                        for foundfiles in $filesfound; do
+                                if [ -f "$foundfiles" ]; then
+                                        echo "found $foundfiles"
+                                        filename="${foundfiles#./}"
+                                        dirname="${filename%.*}"
+                                        echo "mkdir'ing $dirname"
+                                        mkdir -p $dirname
+                                        echo "extracting $filename to $dirname"
+                                        # Let's not remove the tar file if we fail to extract
+                                        if tar xf $filename -C $dirname; then
+                                                echo "removing $filename"
+                                                rm -rf $filename
+                                        else
+                                                continue
+                                        fi
+                                else
+                                        extract_all
+                                fi
+                        done
+                done
+        else
+                exit 0
+        fi
 }
 
-do_stuff
+extract_all
