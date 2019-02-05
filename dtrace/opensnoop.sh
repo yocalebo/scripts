@@ -69,6 +69,8 @@
 # 16-Jan-2006	   "	  "	Added -n, -p.
 # 
 
+# Shamelessly stolen from http://www.brendangregg.com/DTrace/opensnoop_example.txt 
+# I just made the very obvious change to make it run on freeBSD.
 
 ##############################
 # --- Process Arguments ---
