@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+# Quick and dirty python script
+# to upload files to an ftp server
 from ftplib import FTP
 import sys
 
 USERNAME = 'change_me'
 PASSWORD = 'change_me'
-FTP_SITE = 'ftp.ixsystems.com'
+FTP_SITE = 'change_me'
 
 
 def usage():
