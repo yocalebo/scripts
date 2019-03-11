@@ -11,7 +11,7 @@ FTP_SITE = 'change_me'
 
 
 def usage():
-    print("usage: ./upload.py [file1 file2..]")
+    print("usage: ./ftp_upload.py [file1 file2..]")
 
 if len(sys.argv) < 2:
     usage()
