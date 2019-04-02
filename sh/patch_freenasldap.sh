@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# This file is used to patch a regression with local users
+# in version 11.1-U7 of freeNAS.
+
+# Note, the diff file has to be generated manually
+# from this commit: https://github.com/freenas/freenas/pull/2637/files
+
 DIFF_FILE="/root/freenasldap.diff"
 ORIG_FILE="/usr/local/www/freenasUI/common/freenasldap.py"
 BACK_FILE="/usr/local/www/freenasUI/common/freenasldap.py.BACK"
