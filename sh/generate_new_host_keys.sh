@@ -1,5 +1,13 @@
 #!/bin/sh
 
+##################################################################
+# If trueNAS HA, then run on active controller and sync to peer. #
+##################################################################
+
+######################################################
+# If this is TrueNAS single or FreeNAS, just run it. #
+######################################################
+
 KEYS_DIR="/usr/local/etc/ssh/"
 KEYS_BCK="/usr/local/etc/ssh/backup/"
 
