@@ -1,13 +1,5 @@
 #!/bin/sh
 
-##################################################################
-# If trueNAS HA, then run on active controller and sync to peer. #
-##################################################################
-
-######################################################
-# If this is TrueNAS single or FreeNAS, just run it. #
-######################################################
-
 KEYS_DIR="/usr/local/etc/ssh/"
 KEYS_BCK="/usr/local/etc/ssh/backup/"
 
@@ -76,8 +68,24 @@ copy_keys_to_db()
 	fi
 }
 
+sync_peer()
+{
+	output=$(/usr/local/bin/midclt call notifier.failover_licensed > /dev/null 2>&1)
+	if [ "$output" == "True" ]; then
+		if sync=$(/usr/local/bin/midclt call notifier.failover_sync_peer > /dev/null 2>&1); then
+			echo "SUCCESS: successfully sync'ed changes to passive controller"
+		else
+			echo "FATAL: unable to sync the changes to the passive controller"
+			exit 1
+		fi
+	else
+		exit 0
+	fi 
+}
+
 verify
 backup
 remove_keys
 restart_ssh
 copy_keys_to_db
+sync_peer
