@@ -70,8 +70,9 @@ copy_keys_to_db()
 
 sync_peer()
 {
-	output=$(/usr/local/bin/midclt call notifier.failover_licensed > /dev/null 2>&1)
+	output=$(/usr/local/bin/midclt call notifier.failover_licensed 2> /dev/null)
 	if [ "$output" == "True" ]; then
+		echo "SUCCESS: TrueNAS HA detected. Sync'ing to passive controller"
 		if sync=$(/usr/local/bin/midclt call notifier.failover_sync_peer > /dev/null 2>&1); then
 			echo "SUCCESS: successfully sync'ed changes to passive controller"
 		else
