@@ -32,7 +32,7 @@ extract_all () {
                                         # Let's not remove the tar file if we fail to extract
                                         if tar xf $filename -C $dirname; then
                                                 echo "removing $filename"
-                                                rm -rf $filename
+                                                rm -f $filename
                                         else
                                                 continue
                                         fi
