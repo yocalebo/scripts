@@ -19,13 +19,13 @@ verify()
 			echo "wrong version of TrueNAS"
 			echo "expecting TrueNAS-11.1-U7"
 			echo "exiting"
-			exit 0
+			exit 1 
 		fi
 
 	else
 		echo "file /etc/version not found"
 		echo "exiting"
-		exit 0
+		exit 1 
 	fi
 }
 
@@ -38,12 +38,12 @@ backup()
 		else
 			echo "backup failed"
 			echo "exiting"
-			exit 0
+			exit 1 
 		fi
 	else
 		echo "${ORIG_FILE} not found"
 		echo "exiting"
-		exit 0
+		exit 1 
 	fi
 }
 
@@ -59,17 +59,17 @@ patch()
 			if output=$(cp ${BACK_FILE} ${ORIG_FILE} > /dev/null 2>&1); then
 				echo "restored original file"
 				echo "exiting"
-				exit 0
+				exit 1 
 			else
 				echo "restoring original file failed"
 				echo "please manually intervene"
-				exit 0
+				exit 1 
 			fi
 		fi
 	else
 		echo "can't find ${DIFF_FILE}"
 		echo "exiting"
-		exit 0
+		exit 1 
 	fi
 }
 
@@ -80,21 +80,21 @@ restart()
 		echo "restarting middlewared succeeded"
 	else
 		echo "restarting middlewared failed"
-		exit 0
+		exit 1 
 	fi
 
 	if output2=$(service django onerestart > /dev/null 2>&1); then
 		echo "restarting django succeeded"
 	else
 		echo "restarting django failed"
-		exit 0 
+		exit 1 
 	fi
 
 	if output3=$(service nginx onerestart > /dev/null 2>&1); then
 		echo "restarting nginx succeeded"
 	else
 		echo "restarting nginx failed"
-		exit 0
+		exit 1 
 	fi
 }
 
