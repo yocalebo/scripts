@@ -4,11 +4,11 @@
 # in version 11.1-U7 of freeNAS.
 
 # NOTE YOU NEED THE "freenasldap.diff" FILE FROM THIS REPO
-# 1. copy the "freenasldap.diff" file to /root
-# 2. run "sh patch_freenasldap.sh" from CLI
+# 1. git clone https://github.com/scripts/sh 
+# 2. run "sh /root/script/sh/patch_freenasldap.sh" from CLI
 
 
-DIFF_FILE="/root/freenasldap.diff"
+DIFF_FILE="/root/scripts/sh/freenasldap.diff"
 ORIG_FILE="/usr/local/www/freenasUI/common/freenasldap.py"
 BACK_FILE="/usr/local/www/freenasUI/common/freenasldap.py.BACK"
 
