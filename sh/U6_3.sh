@@ -15,13 +15,13 @@ verify()
 			echo "wrong version of TrueNAS"
 			echo "expecting TrueNAS-11.1-U6.3"
 			echo "exiting"
-			exit 0
+			exit 1 
 		fi
 
 	else
 		echo "file /etc/version not found"
 		echo "exiting"
-		exit 0
+		exit 1 
 	fi
 }
 
@@ -33,7 +33,7 @@ backup()
 	else
 		echo "file ix-crontab not found"
 		echo "exiting"
-		exit 0
+		exit 1 
 	fi
 }
 
@@ -47,6 +47,7 @@ patch_crontab()
 	cp $file_to_patch /etc/ix.rc.d/
 	service ix-crontab start
 	echo "patch applied successfully"
+	exit 0
 }
 
 verify
